@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Scarab1
+  - Scarab2
+  - Scarab3
+  - Scarab4
   layers:
   - Default
   - TransparentFX
