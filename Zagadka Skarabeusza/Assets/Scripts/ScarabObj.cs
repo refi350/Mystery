@@ -13,11 +13,13 @@ public class ScarabObj : MonoBehaviour
     [SerializeField] private List<ScarabObj> connectedObjects = new List<ScarabObj>();
 
     private bool isSelected = false;
+    private List<bool> activatedObjects = new List<bool>();
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        for(int i = 0; i < connectedObjects.Count; i++)
+        activatedObjects.Add(true);
     }
 
     // Update is called once per frame
@@ -67,11 +69,35 @@ public class ScarabObj : MonoBehaviour
     {
         for(int i = 0; i < connectedObjects.Count; i++)
         {
-            if(target == connectedObjects[i].gameObject)
+            if(target == connectedObjects[i].gameObject && activatedObjects[i])
             {
+                activatedObjects[i] = false;
                 return true;
             }
         }
         return false;
+    }
+
+    public void ResetConnections()
+    {
+        for(int i = 0; i < activatedObjects.Count; i++)
+        {
+            activatedObjects[i] = true;
+        }
+    }
+
+    public bool Failure()
+    {
+        int gg = 0;
+        for (int i = 0; i < activatedObjects.Count; i++)
+        {
+            if (!activatedObjects[i])
+            {
+                gg++;
+            }
+        }
+        if(gg == activatedObjects.Count)    return true;
+
+            return false;
     }
 }

@@ -33,18 +33,13 @@ public class GameManager : MonoBehaviour
             {
                 if (hit.transform != null)
                 {
-                    if (hit.transform.CompareTag("Scarab1"))
+                    for(int i = 0; i < 4; i++)
                     {
-                        ChangeScarabSprite(0,hit);
-                    } else if (hit.transform.CompareTag("Scarab2"))
-                    {
-                        ChangeScarabSprite(1, hit);
-                    } else if (hit.transform.CompareTag("Scarab3"))
-                    {
-                        ChangeScarabSprite(2, hit);
-                    } else if (hit.transform.CompareTag("Scarab4"))
-                    {
-                        ChangeScarabSprite(3, hit);
+                        if(hit.transform.CompareTag("Scarab" + (i + 1)))
+                        {
+                            ChangeScarabSprite(i, hit);
+                            break;
+                        }
                     }
                 }
             }
@@ -62,10 +57,15 @@ public class GameManager : MonoBehaviour
 
         if (scarabGOT[i] != hit.transform.gameObject && scarabST[i].CheckConnections(hit.transform.gameObject))
         {
+            hit.transform.gameObject.GetComponent<ScarabObj>().CheckConnections(scarabGOT[i]);
             scarabST[i].ChangeScrabSprite(0);
             scarabGOT[i] = hit.transform.gameObject;
             scarabST[i] = scarabGOT[i].GetComponent<ScarabObj>();
             scarabST[i].ChangeScrabSprite(1);
+            if (scarabST[i].Failure())
+            {
+
+            }
         }
     }
 }
