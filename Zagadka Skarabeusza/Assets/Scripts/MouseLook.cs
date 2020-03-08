@@ -4,20 +4,23 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-    public float mouseSensitivity = 100f;
+    //Prosty skrypt odpowiadający za ruch kamerą postaci
 
-    public Transform playerBody;
+    [SerializeField]private float mouseSensitivity = 100f;
 
-    float xRotation = 0f;
+    [SerializeField]private Transform playerBody;
+
+    private float xRotation = 0f;
 
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;

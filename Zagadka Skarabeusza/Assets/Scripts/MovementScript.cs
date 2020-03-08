@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class MovementScript : MonoBehaviour
 {
+    //Prosty skrypt odpowiadający za ruch WSAD postaci
 
-    public CharacterController controller;
+    [SerializeField] private CharacterController controller;
 
-    public float speed = 12f;
+    [SerializeField] private float speed = 12f;
 
     // Update is called once per frame
     void Update()
