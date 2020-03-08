@@ -8,6 +8,10 @@ TagManager:
   - Scarab2
   - Scarab3
   - Scarab4
+  - Board1
+  - Board2
+  - Board3
+  - Board4
   layers:
   - Default
   - TransparentFX

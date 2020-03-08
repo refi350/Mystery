@@ -7,12 +7,11 @@ public class ScarabObj : MonoBehaviour
     [SerializeField]private Sprite activeScarabSprite;
     [SerializeField]private Sprite selectedScarabSprite;
     [SerializeField]private Sprite inactiveScarabSprite;
-
     [SerializeField] private SpriteRenderer spriteobj;
-
     [SerializeField] private List<ScarabObj> connectedObjects = new List<ScarabObj>();
 
-    private bool isSelected = false;
+    [HideInInspector]public bool wasSelected = false;
+
     private List<bool> activatedObjects = new List<bool>();
 
     // Start is called before the first frame update
@@ -22,12 +21,6 @@ public class ScarabObj : MonoBehaviour
         activatedObjects.Add(true);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     // targetSprite - 0(activeScarabSprite), 1(selectedScarabSprite), 2(inactiveScarabSprite)
     public void ChangeScrabSprite(int targetSprite)
     {
@@ -35,35 +28,23 @@ public class ScarabObj : MonoBehaviour
         {
             case 0:
                 spriteobj.sprite = activeScarabSprite;
-                isSelected = false;
+                wasSelected = true;
                 break;
+
             case 1:
                 spriteobj.sprite = selectedScarabSprite;
-                isSelected = true;
+                wasSelected = true;
                 break;
+
             case 2:
                 spriteobj.sprite = inactiveScarabSprite;
-                isSelected = false;
+                wasSelected = false;
                 break;
-         default: Debug.LogError("Wrong Number! targetSprite - 0(activeScarabSprite), 1(selectedScarabSprite), 2(inactiveScarabSprite)");
+
+            default: Debug.LogError("Wrong Number! targetSprite - 0(activeScarabSprite), 1(selectedScarabSprite), 2(inactiveScarabSprite)");
                 break;
         }
     }
-
-    /*private void OnMouseExit()
-    {
-        if (isSelected)
-        {
-            ChangeScrabSprite(0);
-            Debug.Log("Click");
-            for(int i = 0;i < connectedObjects.Count; i++)
-            {
-                Debug.Log(connectedObjects[i]);
-                connectedObjects[i].ChangeScrabSprite(1);
-            }
-            
-        }
-    } */
 
     public bool CheckConnections(GameObject target)
     {
@@ -83,6 +64,7 @@ public class ScarabObj : MonoBehaviour
         for(int i = 0; i < activatedObjects.Count; i++)
         {
             activatedObjects[i] = true;
+            ChangeScrabSprite(2);
         }
     }
 
@@ -96,7 +78,10 @@ public class ScarabObj : MonoBehaviour
                 gg++;
             }
         }
-        if(gg == activatedObjects.Count)    return true;
+        if (gg == activatedObjects.Count)
+        {
+            return true;
+        }
 
             return false;
     }

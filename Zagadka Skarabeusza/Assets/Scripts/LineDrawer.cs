@@ -2,22 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(LineRenderer))]
 public class LineDrawer : MonoBehaviour
 {
-    // Obliczyć:
-    // Pozycja: x, z; Punkt środkowy pomiędzy dwoma skarabeuszami; Wzór: (x1 + x2)/2 = x ; (z1 + z2)/2 = z
-    // Rotacja: y; Quaterion danej linii, której punkty znajdują się przy skarabeuszach
-    // Skala: y; Długość linii
-    // 
+    private LineRenderer lr;
+
+    private Vector3 vCenter;
+    private float vAngle;
+    private float vLength;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        lr = GetComponent<LineRenderer>();
+
+    }
+    public void CreatePoint(Transform s1)
+    {
+        lr.positionCount++;
+        lr.SetPosition(lr.positionCount - 1, s1.position);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void RemoveAllLines()
     {
-        
+        lr.positionCount = 0;
     }
 }
